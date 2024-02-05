@@ -45,10 +45,7 @@ def nearest_intersected_object(objects, ray_origin, ray_direction):
     return nearest_object, min_distance
 
 
-def ray_trace(width=300, height=400):
-  # width = 300
-  # height = 200
-
+def ray_trace(width=400, height=300):
   max_depth = 3
 
   camera = np.array([0, 0, 1])
