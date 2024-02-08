@@ -60,15 +60,20 @@ public:
   }
   friend matrix3d operator+(T k, const matrix3d& a) { return  a + k; }
   friend matrix3d operator-(const matrix3d& a, T k) { 
-		printf("\n\n\n\n\n\n\nIM EHERE\n\n\n\n\nn");
-		/* TODO */ }
-  friend matrix3d operator-(T k, const matrix3d& a) { /* TODO */ }
-  friend matrix3d operator*(const matrix3d& a, T k) { /* TODO */ }
-
-  friend matrix3d<T> operator*(T k, const matrix3d& a) { /* TODO */ }
+    matrix3d<T> m{};
+    for (int vi = 0; vi < 3; ++vi) m.cols_[vi] = a.cols_[vi] - k;
+    return m; 
+  }
+  friend matrix3d operator-(T k, const matrix3d& a) { return -a + k; }
+  friend matrix3d operator*(const matrix3d& a, T k) { 
+    matrix3d<T> m{};
+    for (int vi = 0; vi < 3; ++vi) m.cols_[vi] = a.cols_[vi] * k;
+    return m;
+  }
+  friend matrix3d<T> operator*(T k, const matrix3d& a) { return a * k; }
   friend matrix3d operator/(const matrix3d& a, T k) { 
     if (abs(k) < epsilon_) { throw new std::invalid_argument("divide by zero error"); }
-    return a * (1.0 / k);  
+    return a * (1.0 / k); 
   }
 //=======================================================================
   friend matrix3d operator*(const matrix3d& m, const vector3d<T>& v) { 
@@ -225,6 +230,7 @@ static void run_tests() {
   assert(a + b == b + a);
 
   std::cout << "test a - b == -(b - a)\n";
+
   assert(a - b == -(b - a));
 
   std::cout << "test 3.0 + a == a + 3.0\n";
@@ -396,7 +402,11 @@ template <typename T> matrix3d<T> matrix3d<T>::operator+(const matrix3d<T>& b) {
   return matrix3d<T>(name_ + "+" + b.name_, dims_,
                     { a[0] + b[0], a[1] + b[1], a[2] + b[2] });
 }
-template <typename T> matrix3d<T> matrix3d<T>::operator-(const matrix3d<T>& b) { /* TODO */ }
+template <typename T> matrix3d<T> matrix3d<T>::operator-(const matrix3d<T>& b) { 
+  matrix3d<T> m{};
+  for (int vi = 0; vi < 3; ++vi) m.cols_[vi] = this->cols_[vi] - b.cols_[vi];
+  return m;
+}
 //=================================================================================================
 template <typename T> matrix3d<T> matrix3d<T>::operator*(const matrix3d<T>& b) {
   matrix3d res(name_ + "+" + b.name_, 3);
@@ -462,21 +472,15 @@ template <typename T> matrix3d<T> matrix3d<T>::cofactor() const {
 	return m;
 }
 template <typename T> matrix3d<T> matrix3d<T>::adjoint() const { return this->cofactor().transpose(); }
-template <typename T> matrix3d<T> matrix3d<T>::inverse() const {
-	auto a = this->adjoint();
-	a /= this->determinant();
-	return a;
-}
+template <typename T> matrix3d<T> matrix3d<T>::inverse() const {return this->adjoint() / this->determinant();}
 //=================================================================================================
 template <typename T> matrix3d<T> matrix3d<T>::identity(int dims) { 
-	matrix3d<T> m = matrix3d<T>::zero(dims);
+	matrix3d<T> m{};
 	for (int i = 0; i< dims; i++) m(i, i) = 1;
-	
 	return m;
 }
 template <typename T> matrix3d<T> matrix3d<T>::zero(int dims) { 
 	matrix3d<T> m{"", dims};
-  m *= 0;
   return m;
 }
 template <typename T> bool matrix3d<T>::operator==(const matrix3d<T>& b) const {
@@ -514,6 +518,5 @@ template <typename T> void matrix3d<T>::swap(T& x, T& y) {
   x = y;
   y = temp;
 }
-
 
 #endif  /* __matrix_3d__ */
