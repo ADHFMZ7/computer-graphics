@@ -128,18 +128,18 @@ static void run_tests() {
   // std::cout << u << "\n";
   std::cout << "u.name_ is: " << u.name() << "\n";
   u.zero();
-  u.show();
+  // u.show();
   vector3D v("v", 3, {8, 16, 32});
   vector3D i("i", 3, {1, 0, 0}), j("j", 3, {0, 1, 0}), k("k", 3, {0, 0, 1});
   vector3D w(3 * i + 4 * j - 2 * k);
 
-  u.show();
-  v.show();
-  i.show();
-  j.show();
-  k.show();
+  // u.show();
+  // v.show();
+  // i.show();
+  // j.show();
+  // k.show();
   std::cout << "j + k is: " << j + k << "\n";
-  w.show();
+  // w.show();
 
   std::cout << "*** asserting u == u and u != v" << "\n";
   assert(u == u);
@@ -189,8 +189,8 @@ static void run_tests() {
   assert(k.angle(i) == M_PI_2);
   
   vector3D uhat = u / u.mag();
-  u.show();
-  uhat.show();
+  // u.show();
+  // uhat.show();
   std::cout << "length of uhat.mag() is... " << uhat.mag() << "\n";
   std::cout << "*** asserting u.hat.mag() - 1.0 < 1.0e-10" << "\n";
   assert(uhat.mag() - 1.0 < 1.0e-10);
