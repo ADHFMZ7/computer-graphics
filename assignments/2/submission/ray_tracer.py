@@ -46,7 +46,7 @@ def show_plot_image(image, width, height):
 
 
 def ray_trace(file, width=WIDTH, height=HEIGHT):
-  max_depth = 1
+  max_depth = 4
 
   camera = np.array([0, 0, 1])
   ratio = float(width) / height
