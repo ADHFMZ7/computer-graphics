@@ -4,7 +4,7 @@
 #ifndef __matrix_3d__
 #define __matrix_3d__
 
-#include "vector3dT.h"
+#include "vector3d_T.h"
 
 #include <iostream>
 #include <iomanip>
@@ -126,21 +126,21 @@ friend std::ostream& operator<<(std::ostream& os, const matrix3d<T>& m) {
 static void run_tests() {
   std::cout << "\n====================  TESTING MATRICES  ====================================================\n";
   matrix3D a("a", 3, {3, 2, 0,   0, 0, 1,   2, -2, 1});
-  a.show();
+  // a.show();
 
   matrix3D b("b", 3, {1, 0, 5,   2, 1, 6,   3,  4, 0});
-  b.show();
+  // b.show();
 
   matrix3D id = matrix3D::identity(3);
-  id.show();
+  // id.show();
 
   assert(a * id == a);
-  (a * id).show();
+  // (a * id).show();
 
   assert(a * b != -b * a);
-  (a * b).show();
-  (b * a).show();
-  (-b * a).show();
+  // (a * b).show();
+  // (b * a).show();
+  // (-b * a).show();
 
   assert(a == a);
   assert(b == b);
@@ -150,70 +150,70 @@ static void run_tests() {
   std::cout << "so far so good\n";
 
   matrix3D aT = a.transpose();
-  aT.show();
+  // aT.show();
 
   matrix3D bT = b.transpose();
-  bT.show();
+  // bT.show();
 
   matrix3D abT = (a * b).transpose();
-  abT.show();
+  // abT.show();
 
 
   assert((a * b).transpose() == b.transpose() * a.transpose());
 
   std::cout << "test copy constructor -- program will crash at end if this is incorrect\n";
   matrix3D acopy(a);    // copy constructor
-  acopy.show();
+  // acopy.show();
 
   std::cout << "test copy constructor using =  -- program will crash at end if this is incorrect\n";
   matrix3D a2copy = a;  // copy constructor
-  a2copy.show();
+  // a2copy.show();
 
   std::cout << "test assignment operator  -- program will crash at end if this is incorrect\n";
   matrix3D bcopy;
   bcopy = b;        // assignment operator
-  bcopy.show();
+  // bcopy.show();
 
   std::cout << "test negative unary operator\n";
   matrix3D aneg = -a;
   matrix3D bneg = -b;
-  aneg.show();
-  bneg.show();
+  // aneg.show();
+  // bneg.show();
 
   std::cout << "test determinant\n";
   printf("|a| = %.2f\n", a.determinant());
   printf("|b| = %.2f\n", b.determinant());
 
-  a.transpose().show();
-  b.transpose().show();
+  // a.transpose().show();
+  // b.transpose().show();
 
   std::cout << "test minors\n";
-  a.minors().show();
-  b.minors().show();
+  // a.minors().show();
+  // b.minors().show();
 
   std::cout << "test cofactor\n";
-  a.cofactor().show();
-  b.cofactor().show();
+  // a.cofactor().show();
+  // b.cofactor().show();
 
   std::cout << "test adjoint\n";
-  a.adjoint().show();
-  b.adjoint().show();
+  // a.adjoint().show();
+  // b.adjoint().show();
 
   std::cout << "test inverse\n";
   matrix3D ainv = a.inverse();
-  ainv.show();
+  // ainv.show();
 
   matrix3D binv = b.inverse();
-  binv.show();
+  // binv.show();
 
   std::cout << "test a * ainv, b * binv\n";
-  (a * ainv).show();
-  (b * binv).show();
+  // (a * ainv).show();
+  // (b * binv).show();
 
   std::cout << "test a * ainv == id\n";
 
   std::cout << "IDENTITY" << std::endl;
-  matrix3D::identity(3).show();
+  // matrix3D::identity(3).show();
 
   assert(a * ainv == matrix3D::identity(3));
   assert(a * ainv == ainv * a);
@@ -241,19 +241,19 @@ static void run_tests() {
 
   std::cout << "test a + 3.0 - 3.0 == a\n";
   matrix3D a_plus_3 = a + 3.0;
-  a_plus_3.show();
+  // a_plus_3.show();
   matrix3D a_minus_3 = a - 3.0;
-  a_minus_3.show();
+  // a_minus_3.show();
 
   matrix3D a_plus_3_minus_3 = a + 3.0 - 3.0;
-  a_plus_3_minus_3.show();
+  // a_plus_3_minus_3.show();
   assert((a + 3.0) - 3.0 == a);
 
   std::cout << "test a * 3.0 / 3.0 == a\n";
   matrix3D a_times_3 = a * 3.0;
-  a_times_3.show();
+  // a_times_3.show();
   matrix3D a_dividedby_3 = a / 3.0;
-  a_dividedby_3.show();
+  // a_dividedby_3.show();
 
   assert((3.0 * a) / 3.0 == a);
 
@@ -267,15 +267,15 @@ static void run_tests() {
   std::cout << "testing matrix vector multiplication\n";
   vector3D p("p", 2, {1, 2});
   matrix3D m("m", 2, {1, 2,   3, 4});
-  p.show();
-  m.show();
+  // p.show();
+  // m.show();
   std::cout << "asserting that p *  stop reason = EXC_BREAKPOINTm == m * p\n";
   assert(p * m == m * p);
 
   vector3D q("q", 3, {1, 2, 3});
   matrix3D n("n", 3, {1, 2, 3,   4, 5, 6,   7, 8, 9});
-  q.show();
-  n.show();
+  // q.show();
+  // n.show();
   std::cout << "asserting that q * n == n * q\n";
   assert(q * n == n * q);
 
@@ -475,12 +475,12 @@ template <typename T> matrix3d<T> matrix3d<T>::adjoint() const { return this->co
 template <typename T> matrix3d<T> matrix3d<T>::inverse() const {return this->adjoint() / this->determinant();}
 //=================================================================================================
 template <typename T> matrix3d<T> matrix3d<T>::identity(int dims) { 
-	matrix3d<T> m{"Identity"};
+	matrix3d<T> m{};
 	for (int i = 0; i< dims; i++) m(i, i) = 1;
 	return m;
 }
 template <typename T> matrix3d<T> matrix3d<T>::zero(int dims) { 
-	matrix3d<T> m{"Zero", dims};
+	matrix3d<T> m{"", dims};
   return m;
 }
 template <typename T> bool matrix3d<T>::operator==(const matrix3d<T>& b) const {
