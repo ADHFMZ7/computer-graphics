@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -g -std=c++17
+CXXFLAGS = -std=c++17 -g
 TARGET = prog 
 SRCS = main.cpp
 
